@@ -17,7 +17,7 @@ SCRIPT=/data1/labTools/expression/latest/expression.py
 ```bash
 $ singularity exec --bind /data1 $img python $SCRIPT --help
 version: v1.0.0
-usage: expression.py [-h] [--version] {batch,BH,individual,IND} ...
+usage: expression.py [-h] [--version] {batch,BC,individual,IND} ...
 
 Create an expression value file for each specimen in the relevant batch.
 
@@ -65,6 +65,16 @@ optional arguments:
   --outdir OUTDIR, -o OUTDIR
                         output directory path (default: /data1/work/expression)
 ```
+| option           | 概要          |default         |
+|:-----------------|:--------------|:---------------|
+|--flowcellid/-fc  |flowcel ID     |None            |
+|--inclusion/-i    |除外するSample IDを指定。カンマ区切りで複数指定可能         |None |
+|--exclusion/-e    |アップロードするSample IDを指定。カンマ区切りで複数指定可能 |None |
+|--genelist/-g     |遺伝子リストファイルのパス      |None               |
+|--data_type/-t    |発現量の計測単位 [gene,isoform] |gene               |
+|--directory/-d    |解析フォルダの親ディレクトリ    |/data1/data/result |
+|--outdir/-o       |データの出力先ディレクトリ      |/data1/work/expression
+
 
 ## 2\. sample IDと遺伝子名を指定
 Sample IDと遺伝子を指定し、まとめて1つのExcelファイルに書き出す。
@@ -91,6 +101,13 @@ optional arguments:
   --outfile OUTFILE, -o OUTFILE
                         output file path (default: /data1/work/expression/expression.xlsx)
 ```
+| option           | 概要            |default            |
+|:-----------------|:----------------|:------------------|
+|--sample/-s       |sample ID        |None (カンマ区切りで複数指定可)        |
+|--gene/-g         |gene name        |None (カンマ区切りで複数指定可)        |
+|--data_type/-t    |発現量の計測単位 [gene,isoform]      |gene               |
+|--directory/-d    |解析フォルダの親ディレクトリへのパス |/data1/data/result |
+|--outfile/-o      |output file path |/data1/work/expression/expression.xlsx |
 
 
 
