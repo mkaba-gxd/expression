@@ -24,7 +24,7 @@ def main():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # aggregation
-    parser_ag = subparsers.add_parser("batch",  aliases=['BH'], help="Create a list of expression values for the batch.", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser_ag = subparsers.add_parser("batch",  aliases=['BC'], help="Create an expression value file for each specimen in the relevant batch.", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser_ag.add_argument("--flowcellid","-fc", required=True, help="flowcell id")
     parser_ag.add_argument("--inclusion","-i", required=False, help="sample IDs to include (comma separated)", default="")
     parser_ag.add_argument("--exclusion","-e", required=False, help="sample IDs to exclude (comma separated)", default="")
