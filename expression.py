@@ -28,7 +28,7 @@ def main():
     parser_ag.add_argument("--flowcellid","-fc", required=True, help="flowcell id")
     parser_ag.add_argument("--inclusion","-i", required=False, help="sample IDs to include (comma separated)", default="")
     parser_ag.add_argument("--exclusion","-e", required=False, help="sample IDs to exclude (comma separated)", default="")
-    parser_ag.add_argument("--genelist","-g", required=False, help="genes list", default="")
+    parser_ag.add_argument("--genelist","-g", required=False, help="genes list", default=None)
     parser_ag.add_argument("--data_type","-t", required=False, help="where each simulated read comes from.", default="gene", choices=["gene","isoform"])
     parser_ag.add_argument("--directory","-d", required=False, help="parent analytical directory", default="/data1/data/result")
     parser_ag.add_argument("--outdir","-o", required=False, help="output directory path", default="/data1/work/expression")

@@ -56,6 +56,12 @@ def Search_fcDir(batchID, novaseqDir : Path):
 
     return os.path.basename(fcDirs[-1])
 
+def prompt_choice(prompt, choices):
+    while True:
+        ans = input(prompt).strip().lower()
+        if ans in choices:
+            return ans
+
 def init(msg="No matching data found."):
     print(msg)
     sys.exit(1)

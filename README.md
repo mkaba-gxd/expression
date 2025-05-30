@@ -1,10 +1,10 @@
 # expression
 WTS 解析工程で作成される発現量値をファイル出力する
 
-| command       | 概要                                               |
-|:--------------|:---------------------------------------------------|
-|batch, BC      |1つのバッチに含まれる検体毎の発現量値一覧を作成する |
-|individual,IND |検体番号と遺伝子を指定して発現量値一覧を作成する    |
+| command        | 概要                                               |
+|:---------------|:---------------------------------------------------|
+|batch, BC       |1つのバッチに含まれる検体毎の発現量値一覧を作成する |
+|individual, IND |検体番号と遺伝子を指定して発現量値一覧を作成する    |
 
 ## 変数の定義(共通)
 ```bash
@@ -87,7 +87,8 @@ singularity exec --bind /data1 $img python $SCRIPT IND --sample <sample IDs> --g
 ```
 $ singularity exec --bind /data1 $img python $SCRIPT individual --help
 version: v1.0.0
-usage: expression.py individual [-h] --sample SAMPLE --gene GENE [--data_type {gene,isoform}] [--directory DIRECTORY] [--outfile OUTFILE]
+usage: expression.py individual [-h] --sample SAMPLE --gene GENE [--data_type {gene,isoform}]
+                                [--directory DIRECTORY] [--outfile OUTFILE]
 
 optional arguments:
   -h, --help            show this help message and exit

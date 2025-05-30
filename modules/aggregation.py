@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 import pandas as pd
+import select
 from pathlib import Path
 from .common import *
 
@@ -64,7 +65,12 @@ def exp_aggr(args):
     anal_dir = os.path.join(directory,"WTS",df_info['seqDir'][0])
     out_folder = os.path.join(outdir, df_info['seqDir'][0])
 
-    if os.path.isdir(out_folder) : shutil.rmtree(out_folder)
+    if os.path.isdir(out_folder) :
+        choice = prompt_choice("Output directory exists. Do you want to append/overwrite? (yes[Y]/no[N]): ", ['yes', 'y', 'no', 'n'])
+        if choice in ['no', 'n']:
+            print('deleted files')
+            shutil.rmtree(out_folder)
+
     os.makedirs(out_folder, exist_ok=True)
 
     for i, item in df_info.iterrows() :
@@ -88,10 +94,14 @@ def exp_aggr(args):
 
         if len(genes) > 0 :
             match_genes = list(set(data['gene_name']) & set(genes))
+            lost_genes = list(set(genes) - set(data['gene_name']))
             if len(match_genes) == 0:
-                print("All listed genes are not included in the analysis. Write down all genes.")
+                if i == 0: print("All listed genes are not included in the analysis. Write down all genes.")
+            elif len(lost_genes) > 0:
+                if i == 0: print("Some genes are excluded: " + ','.join(lost_genes))
+                data = data[data['gene_name'].isin(genes)]
             else:
-                data = data[data['gene_name'].isin(match_genes)]
+                data = data[data['gene_name'].isin(genes)]
 
         data.to_csv(os.path.join(outdir, df_info['seqDir'][0], '.'.join([item['SAMPLE_ID'],data_type,'csv'])), header=True, index=False)
 

@@ -84,6 +84,11 @@ def exp_ind(args) :
             merge_data = pd.concat([merge_data, data], axis=0)
 
     if not merge_data is None :
+        if os.path.isfile(outfile) :
+            choice = prompt_choice("Output file exists. Do you want to append/overwrite? (yes[Y]/no[N]): ", ['yes', 'y', 'no', 'n'])
+            if choice in ['no', 'n']:
+                 init('Suspend operation.')
+
         if not os.path.isdir(os.path.dirname(outfile)) :
              os.makedirs(os.path.dirname(outfile), exist_ok=True)
 
