@@ -78,7 +78,7 @@ def exp_ind(args) :
 
         data = data[data['gene_name'].isin(genes)]
         data.insert(0, 'sample_id', item['SAMPLE_ID'])
-        if not merge_data is None :
+        if merge_data is None :
             merge_data = data
         else :
             merge_data = pd.concat([merge_data, data], axis=0)
