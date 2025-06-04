@@ -3,7 +3,7 @@ WTS 解析工程で作成される発現量値をファイル出力する
 
 | command        | 概要                                               |
 |:---------------|:---------------------------------------------------|
-|batch, BC       |1つのバッチに含まれる検体毎の発現量値一覧を作成する |
+|batch, BC       |指定のバッチで解析された発現量値を検体別に出力する  |
 |individual, IND |検体番号と遺伝子を指定して発現量値一覧を作成する    |
 
 ## 変数の定義(共通)
@@ -109,7 +109,5 @@ optional arguments:
 |--gene/-g      |True      |gene name        |None (カンマ区切りで複数指定可)        |
 |--data_type/-t |False     |発現量の計測単位 [gene,isoform]      |gene               |
 |--directory/-d |False     |解析フォルダの親ディレクトリへのパス |/data1/data/result |
-|--outfile/-o   |False     |output file path |/data1/work/expression/expression.xlsx |
-
-
+|--outfile/-o   |False     |出力ファイルパス |/data1/work/expression/expression.xlsx |
 
