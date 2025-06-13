@@ -56,6 +56,10 @@ def Search_fcDir(batchID, novaseqDir : Path):
 
     return os.path.basename(fcDirs[-1])
 
+def rmdup_list(lst):
+    seen = set()
+    return [x for x in lst if not (x in seen or seen.add(x))]
+
 def prompt_choice(prompt, choices):
     while True:
         ans = input(prompt).strip().lower()

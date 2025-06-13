@@ -16,6 +16,9 @@ def exp_aggr(args):
     inclusion = [x.strip() for x in args.inclusion.split(',') if not x.strip() == '']
     exclusion = [x.strip() for x in args.exclusion.split(',') if not x.strip() == '']
 
+    inclusion = rmdup_list(inclusion)
+    exclusion = rmdup_list(exclusion)
+
     if gene_path is not None :
 
         if os.path.isfile(gene_path) :

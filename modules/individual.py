@@ -30,6 +30,9 @@ def exp_ind(args) :
     outfile = os.path.abspath(args.outfile)
     merge_data = None
 
+    samples = rmdup_list(samples)
+    genes = rmdup_list(genes)
+
     if len(samples) == 0 or len(genes) == 0 : init('wrong argument.')
 
     df_info = getinfo(search_sample( "'" + "\',\'".join(samples) + "'" ))
