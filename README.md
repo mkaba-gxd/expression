@@ -1,29 +1,27 @@
 # expression
-WTS 解析工程で作成される発現量値をファイル出力する
+WTS 解析工程で作成される発現量値をファイル出力する。
+指定されたsample IDやflowcell IDから検体情報をデータベースに問合せ、CAPサーバ/バックアップサーバ内のファイルを検索して転送するため、データベースに登録がない検体や、規程の場所にファイルがない検体に対しては実行できません。
+| command        | 概要                                          |
+|:---------------|:----------------------------------------------|
+|batch, BC       |指定のバッチで解析された発現量値を検体別に出力する |
+|individual, IND |検体番号と遺伝子を指定して発現量値一覧を作成する   |
 
-| command        | 概要                                               |
-|:---------------|:---------------------------------------------------|
-|batch, BC       |指定のバッチで解析された発現量値を検体別に出力する  |
-|individual, IND |検体番号と遺伝子を指定して発現量値一覧を作成する    |
-
-## 変数の定義(共通)
-```bash
-img=/data1/labTools/labTools.sif
-SCRIPT=/data1/labTools/expression/latest/expression.py
+## エイリアスの作成 ※ 初回のみ
+~/bin フォルダ直下に以下のコマンドを記載したテキストファイル expression を作成し、実行権限を付与する。 エイリアスを作成しない場合は、singularity でコンテナとスクリプトファイルを指定して実行する。 （gxd_pipeline, guest_user ユーザーには実装済み）
 ```
-
-## マニュアルの表示
-全体の概要表示
-```bash
-$ singularity exec --bind /data1 $img python $SCRIPT --help
+singularity exec --disable-cache --bind /data1 /data1/labTools/labTools.sif python /data1/labTools/expression/latest/expression.py $@
+```
+helpページを表示してエイリアスの設定を確認する。以下が表示されればOK。
+```
+$ expression --help
 version: v1.0.0
 usage: expression.py [-h] [--version] {batch,BC,individual,IND} ...
 
-Create an expression value file for each specimen in the relevant batch.
+Create a list of expression amount values.
 
 positional arguments:
   {batch,BC,individual,IND}
-    batch (BC)          Create a list of expression values for the batch.
+    batch (BC)          Create an expression value file for each specimen in the relevant batch.
     individual (IND)    Specify samples and genes (small scale).
 
 optional arguments:
@@ -32,22 +30,20 @@ optional arguments:
 ```
 コマンド別の詳細表示
 ```
-singularity exec --bind /data1 $img python $SCRIPT <command> --help
+expression [batch/BC/individual/IND] --help
 ```
-
 ## 1\. バッチ単位で処理
 flowce IDを指定して、該当するバッチに含まれる検体毎に発現量値一覧のcsvファイルを作成する。
 ```
-singularity exec --bind /data1 $img python $SCRIPT batch -fc <flowcellid>
-singularity exec --bind /data1 $img python $SCRIPT BC -fc <flowcellid>
+expression batch --flowcellid <flowcellid>
+expression BC -fc <flowcellid>
 ```
 ### オプションの詳細
 ```
-$ singularity exec --bind /data1 $img python $SCRIPT batch --help
+$ expression batch --help
 version: v1.0.0
 usage: expression.py batch [-h] --flowcellid FLOWCELLID [--inclusion INCLUSION] [--exclusion EXCLUSION] [--genelist GENELIST]
                            [--data_type {gene,isoform}] [--directory DIRECTORY] [--outdir OUTDIR]
-
 optional arguments:
   -h, --help            show this help message and exit
   --flowcellid FLOWCELLID, -fc FLOWCELLID
@@ -75,22 +71,21 @@ optional arguments:
 |--directory/-d   |False     |解析フォルダの親ディレクトリ    |/data1/data/result         |
 |--outdir/-o      |False     |データの出力先ディレクトリ      |/data1/work/expression     |
 
---genelist を指定しない場合はすべての全遺伝子の発現量を書き出す。
+※ --genelist を指定しない場合はアノテーションファイルに記載された全遺伝子の発現量を書き出す。
 
 ## 2\. sample IDと遺伝子名を指定
 Sample IDと遺伝子を指定し、まとめて1つのExcelファイルに書き出す。
 (カンマ区切りで複数指定可能)
 ```
-singularity exec --bind /data1 $img python $SCRIPT individual --sample <sample IDs> --gene <genes>
-singularity exec --bind /data1 $img python $SCRIPT IND --sample <sample IDs> --gene <genes>
+expression individual --sample <sample IDs> --gene <genes>
+expression IND -s <sample IDs> -g <genes>
 ```
 ### オプションの詳細
 ```
-$ singularity exec --bind /data1 $img python $SCRIPT individual --help
+$ expression individual --help
 version: v1.0.0
 usage: expression.py individual [-h] --sample SAMPLE --gene GENE [--data_type {gene,isoform}]
                                 [--directory DIRECTORY] [--outfile OUTFILE]
-
 optional arguments:
   -h, --help            show this help message and exit
   --sample SAMPLE, -s SAMPLE
