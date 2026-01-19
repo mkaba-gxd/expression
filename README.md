@@ -10,7 +10,13 @@ WTS 解析工程で作成される発現量値をファイル出力する。\
 |[individual, IND](#IND) |検体番号と遺伝子を指定して発現量値一覧を作成する   |
 
 ## エイリアスの作成 ※ 初回のみ
-~/bin フォルダ直下に以下のコマンドを記載したテキストファイル expression を作成し、実行権限を付与する。 エイリアスを作成しない場合は、singularity でコンテナとスクリプトファイルを指定して実行する。 （gxd_pipeline, guest_user ユーザーには実装済み）
+**gxd_pipeline, guest_user ユーザーには実装済みなので実行しなくて良いです。**\
+~/bin フォルダ直下に以下のコマンドを記載したテキストファイル expression を作成し、実行権限を付与する。 
+<details>
+  <summary> 
+    More Details
+  </summary>
+
 ```
 singularity exec --disable-cache --bind /data1 /data1/labTools/labTools.sif python /data1/labTools/expression/latest/expression.py $@
 ```
@@ -35,6 +41,10 @@ optional arguments:
 ```
 expression [batch/BC/individual/IND] --help
 ```
+エイリアスを作成しない場合は、singularity でコンテナとスクリプトファイルを指定して実行する。
+
+</details>
+
 <a id="BC"></a>
 ## 1\. バッチ単位で処理
 flowce IDを指定して、該当するバッチに含まれる検体毎に発現量値一覧のcsvファイルを作成する。
