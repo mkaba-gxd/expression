@@ -52,7 +52,11 @@ flowce IDを指定して、該当するバッチに含まれる検体毎に発�
 expression batch --flowcellid <flowcellid>
 expression BC -fc <flowcellid>
 ```
-### オプションの詳細
+<details>
+  <summary> 
+    More Details
+  </summary>
+
 ```
 $ expression batch --help
 version: v1.0.0
@@ -75,6 +79,10 @@ optional arguments:
   --outdir OUTDIR, -o OUTDIR
                         output directory path (default: /data1/work/expression)
 ```
+
+</details>
+
+### オプションの詳細
 | option          | required | 概要          |default         |
 |:----------------|:---------|:--------------|:---------------|
 |--flowcellid/-fc |True      |flowcel ID     |None            |
@@ -95,7 +103,11 @@ Sample IDと遺伝子を指定し、まとめて1つのExcelファイルに書�
 expression individual --sample <sample IDs> --gene <genes>
 expression IND -s <sample IDs> -g <genes>
 ```
-### オプションの詳細
+<details>
+  <summary> 
+    More Details
+  </summary>
+
 ```
 $ expression individual --help
 version: v1.0.0
@@ -113,6 +125,9 @@ optional arguments:
   --outfile OUTFILE, -o OUTFILE
                         output file path (default: /data1/work/expression/expression.xlsx)
 ```
+</details>
+
+### オプションの詳細
 | option        | required | 概要            |default            |
 |:--------------|:---------|:----------------|:------------------|
 |--sample/-s    |True      |sample ID        |None (カンマ区切りで複数指定可)        |
